@@ -6,8 +6,8 @@ from houses.views import houses_list, house_detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', houses_list),
-    path('<int:house_id>', house_detail)
+    path('', houses_list, name='home'),
+    path('<int:house_id>', house_detail, name='house')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
