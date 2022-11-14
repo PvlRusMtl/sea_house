@@ -1,0 +1,22 @@
+{% load  thumbnail %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sea house</title>
+</head>
+<body>
+    <h1>Houses list</h1>
+    {% for house in houses %}
+        <div>
+            <h2>{{ house.name }}</h2>
+            <div>{{ house.price }}</div>
+            <div>{{ house.description }}</div>
+
+            {% thumbnail house.image "325x200" crop='center' as im %}
+                <img src="{{ im.url }}" alt="House {{ house.name }}">
+            {% endthumbnail %}
+        </div>
+    {% endfor %}
+</body>
+</html>
