@@ -2,16 +2,20 @@
 {% load  thumbnail %}
 
 {% block application %}
-<h1>Houses list</h1>
-{% for house in houses %}
-    <div>
-        <h2><a href="{% url 'house' house_id=house.id %}">{{ house.name }}</a></h2>
-        <div>{{ house.price }}</div>
-        <div>{{ house.description }}</div>
+    <h1>Houses list</h1>
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+    {% for house in houses %}
+        <div>
+            <h2><a href="{% url 'house' house_id=house.id %}">{{ house.name }}</a></h2>
+            <div>{{ house.price }}</div>
+            <div>{{ house.description }}</div>
 
-        {% thumbnail house.image "325x200" crop='center' as im %}
-            <img src="{{ im.url }}" alt="House {{ house.name }}">
-        {% endthumbnail %}
-    </div>
-{% endfor %}
+            {% thumbnail house.image "325x200" crop='center' as im %}
+                <img src="{{ im.url }}" alt="House {{ house.name }}">
+            {% endthumbnail %}
+        </div>
+    {% endfor %}
 {% endblock %}
