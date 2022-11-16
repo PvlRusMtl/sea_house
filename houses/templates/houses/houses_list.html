@@ -1,21 +1,26 @@
 {% extends "index.html" %}
-{% load  thumbnail %}
+{% load humanize %}
 
 {% block application %}
-    <h1>Houses list</h1>
-    <form method="get">
-        {{ form.as_p }}
-        <button type="submit">Search</button>
-    </form>
-    {% for house in houses %}
-        <div>
-            <h2><a href="{% url 'house' house_id=house.id %}">{{ house.name }}</a></h2>
-            <div>{{ house.price }}</div>
-            <div>{{ house.description }}</div>
 
-            {% thumbnail house.image "325x200" crop='center' as im %}
-                <img src="{{ im.url }}" alt="House {{ house.name }}">
-            {% endthumbnail %}
+    <form action="" method="get" class="search-form">
+        <p class="h"><strong>Price</strong></p> {{ form.as_p }}
+        <input type="submit" value="Search">
+    </form>
+    <div style="clear: both"></div>
+
+    <div class="houses">
+    {% for house in houses %}
+        <div class="house">
+            <a href="{% url 'house' house_id=house.id %}" class="img">
+                {% if house.image %}
+                    <img src="{{ house.image.url }}" alt="{{ house.name }}">
+                {% endif %}
+            </a>
+            <h2><a href="{% url 'house' house_id=house.id %}">{{ house.name }}</a></h2>
+            <div class="price">{{ house.price|intcomma }} $</div>
         </div>
     {% endfor %}
+    </div>
+    <div style="clear: both"></div>
 {% endblock %}
